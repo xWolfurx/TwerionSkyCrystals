@@ -2,6 +2,7 @@ package net.twerion.skycrystals;
 
 import net.twerion.skycrystals.api.SkyCrystalsManager;
 import net.twerion.skycrystals.command.Command_SkyCrystals;
+import net.twerion.skycrystals.command.Command_SkyCrystalsShop;
 import net.twerion.skycrystals.database.SQLManager;
 import net.twerion.skycrystals.event.*;
 import net.twerion.skycrystals.manager.FileManager;
@@ -58,7 +59,9 @@ public class SkyCrystals extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("SkyCrystals").setExecutor(new Command_SkyCrystals());
-        getCommand("Scs").setExecutor(new Command_SkyCrystals());
+        getCommand("Sc").setExecutor(new Command_SkyCrystals());
+        getCommand("SkyCrystalsShop").setExecutor(new Command_SkyCrystalsShop());
+        getCommand("Scs").setExecutor(new Command_SkyCrystalsShop());
     }
 
     private void registerEvents() {

@@ -3,6 +3,7 @@ package net.twerion.skycrystals.command;
 import net.twerion.beast.client.api.CloudAPI;
 import net.twerion.beast.protocol.types.rank.Rank;
 import net.twerion.skycrystals.SkyCrystals;
+import net.twerion.skycrystals.database.Callback;
 import net.twerion.skycrystals.database.DatabaseUpdate;
 import net.twerion.skycrystals.player.PlayerData;
 import org.bukkit.Bukkit;
@@ -21,21 +22,34 @@ public class Command_SkyCrystals implements CommandExecutor {
             Player player = (Player)sender;
             Rank rank = CloudAPI.getPlayerAPI().getRank(player);
 
-            if(args.length == 0) {
-                player.openInventory(SkyCrystals.getInstance().getShopManager().buildShopInventory(player));
-            } else if(args.length == 1) {
-                String targetPlayerName = args[0];
-                if(Bukkit.getPlayer(targetPlayerName) == null) {
-                    final PlayerData targetPlayerData = new PlayerData(targetPlayerName, false);
-                    targetPlayerData.addReadyExecutor(new DatabaseUpdate.ReadyExecutor() {
+            if(args.length == 1) {
+                if(args[0].equalsIgnoreCase("convert")) {
+                    player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7Alte SkyCrystals werden übertragen...");
+                    SkyCrystals.getInstance().getPlayerDataManager().getOldSkyCrystalsAsync(player.getName(), new Callback<Double>() {
                         @Override
-                        public void ready() {
-                            player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7SkyCrystals von §a" + targetPlayerName + "§7: §a" + targetPlayerData.getCrystals() + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency());
+                        public void accept(Double crystals) {
+                            PlayerData playerData = SkyCrystals.getInstance().getPlayerDataManager().getPlayerData(player);
+                            playerData.addCrystals(crystals);
+                            SkyCrystals.getInstance().getPlayerDataManager().resetOldSkyCrystals(player.getName());
+                            player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7Es wurden §a" + crystals + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency() + " §7übertragen.");
                         }
                     });
+                } else if(args[0].equalsIgnoreCase("open")) {
+                    player.openInventory(SkyCrystals.getInstance().getShopManager().buildShopInventory(player));
                 } else {
-                    PlayerData targetPlayerData = SkyCrystals.getInstance().getPlayerDataManager().getPlayerData(Bukkit.getPlayer(targetPlayerName));
-                    player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7SkyCrystals von §a" + targetPlayerName + "§7: §a" + targetPlayerData.getCrystals() + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency());
+                    String targetPlayerName = args[0];
+                    if (Bukkit.getPlayer(targetPlayerName) == null) {
+                        final PlayerData targetPlayerData = new PlayerData(targetPlayerName, false);
+                        targetPlayerData.addReadyExecutor(new DatabaseUpdate.ReadyExecutor() {
+                            @Override
+                            public void ready() {
+                                player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7SkyCrystals von §a" + targetPlayerName + "§7: §a" + targetPlayerData.getCrystals() + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency());
+                            }
+                        });
+                    } else {
+                        PlayerData targetPlayerData = SkyCrystals.getInstance().getPlayerDataManager().getPlayerData(Bukkit.getPlayer(targetPlayerName));
+                        player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§7SkyCrystals von §a" + targetPlayerName + "§7: §a" + targetPlayerData.getCrystals() + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency());
+                    }
                 }
             } else if(args.length == 3) {
                 if(rank.getAccesslevel() >= SkyCrystals.getInstance().getFileManager().getPermissionFile().getAccessLevel("Command.SkyCrystals.Admin")) {
@@ -98,7 +112,7 @@ public class Command_SkyCrystals implements CommandExecutor {
                     player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + SkyCrystals.getInstance().getFileManager().getConfigFile().getNoPermission());
                 }
             } else {
-                player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§cVerwendung: §b/" + label + (rank.getAccesslevel() >= SkyCrystals.getInstance().getFileManager().getPermissionFile().getAccessLevel("Command.SkyCrystals.Admin") ? " <add|remove|set> <player> <amount>" : " [player]"));
+                this.sendHelp(player, rank, label);
             }
         } else {
             sender.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + SkyCrystals.getInstance().getFileManager().getConfigFile().getWrongCommandExecutor());
@@ -106,7 +120,16 @@ public class Command_SkyCrystals implements CommandExecutor {
         return false;
     }
 
-    private void sendHelp(Player player, String label) {
-
+    private void sendHelp(Player player, Rank rank, String label) {
+        player.sendMessage("§b§m-->-----------------§b<< §c§lSkyCrystals §b>>§b§m-----------------<--");
+        player.sendMessage(" §8» §7SkyCrystals-Shop öffnen: §a/" + label + " open");
+        player.sendMessage(" §8» §7Alte SkyCrystals übertragen: §a/" + label + " convert");
+        player.sendMessage(" §8» §7SkyCrystals von einem Spieler: §a/" + label + " <player>");
+        if(rank.getAccesslevel() >= SkyCrystals.getInstance().getFileManager().getPermissionFile().getAccessLevel("Command.SkyCrystals.Admin")) {
+            player.sendMessage(" §8» §7SkyCrystals setzten: §a/" + label + " set <player> <amount>");
+            player.sendMessage(" §8» §7SkyCrystals hinzufügen: §a/" + label + " add <player> <amount>");
+            player.sendMessage(" §8» §7SkyCrystals entfernen: §a/" + label + " remove <player> <amount>");
+        }
+        player.sendMessage("§b§m-->-----------------§b<< §c§lSkyCrystals §b>>§b§m-----------------<--");
     }
 }

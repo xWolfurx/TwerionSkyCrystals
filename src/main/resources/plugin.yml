@@ -8,6 +8,12 @@ commands:
   SkyCrystals:
     description: Main command.
     usage:
-  Scs:
+  Sc:
     description: Main command.
+    usage:
+  SkyCrystalsShop:
+    description: Shop command.
+    usage:
+  Scs:
+    description: Shop command.
     usage:
