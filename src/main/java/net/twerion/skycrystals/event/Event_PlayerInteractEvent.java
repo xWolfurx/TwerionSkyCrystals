@@ -43,7 +43,7 @@ public class Event_PlayerInteractEvent implements Listener {
 
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             if(item != null && item.getType() != Material.AIR) {
-                if(item.getType() == Material.NETHER_STAR && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+                if(item.getType() == Material.PAPER && item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
                     if(item.getItemMeta().getDisplayName().equals("§b§lSkyCrystals §7§o<Rechtsklick>")) {
                         e.setCancelled(true);
                         String[] loreArray = item.getItemMeta().getLore().get(0).split(" §8➥ §7Wert §8» §a");

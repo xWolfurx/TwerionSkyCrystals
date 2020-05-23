@@ -1,5 +1,6 @@
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\event\Event_PlayerQuitEvent.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\manager\FileManager.java
+C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\command\Command_SkyCrystalsShop.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\api\SkyCrystalsManager.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\database\AsyncHandler.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\event\Event_InventoryClickEvent.java
@@ -9,11 +10,12 @@ C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\manager\Man
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\file\SellItemFile.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\database\DatabaseUpdate.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\transaction\TransactionHandler.java
+C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\event\Event_CreatureSpawnEvent.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\player\PlayerData.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\command\Command_SkyCrystals.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\database\Callback.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\database\SQLManager.java
-C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\api\ModificationType.java
+C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\inventory\RankingInventory.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\other\DefaultItems.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\api\ISkyCrystals.java
 C:\IntelliJ\TwerionSkyCrystals\src\main\java\net\twerion\skycrystals\event\Event_PlayerInteractEvent.java

@@ -65,6 +65,7 @@ public class SkyCrystals extends JavaPlugin {
     }
 
     private void registerEvents() {
+        new Event_CreatureSpawnEvent();
         new Event_InventoryClickEvent();
         new Event_InventoryCloseEvent();
         new Event_PlayerInteractEvent();

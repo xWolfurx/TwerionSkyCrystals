@@ -5,12 +5,15 @@ import net.twerion.beast.protocol.types.rank.Rank;
 import net.twerion.skycrystals.SkyCrystals;
 import net.twerion.skycrystals.database.Callback;
 import net.twerion.skycrystals.database.DatabaseUpdate;
+import net.twerion.skycrystals.inventory.RankingInventory;
 import net.twerion.skycrystals.player.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.text.DecimalFormat;
 
 public class Command_SkyCrystals implements CommandExecutor {
 
@@ -36,6 +39,8 @@ public class Command_SkyCrystals implements CommandExecutor {
                     });
                 } else if(args[0].equalsIgnoreCase("open")) {
                     player.openInventory(SkyCrystals.getInstance().getShopManager().buildShopInventory(player));
+                } else if(args[0].equalsIgnoreCase("ranking")) {
+                    RankingInventory.openRankingInventory(player);
                 } else {
                     String targetPlayerName = args[0];
                     if (Bukkit.getPlayer(targetPlayerName) == null) {
@@ -121,8 +126,9 @@ public class Command_SkyCrystals implements CommandExecutor {
     }
 
     private void sendHelp(Player player, Rank rank, String label) {
-        player.sendMessage("§b§m-->-----------------§b<< §c§lSkyCrystals §b>>§b§m-----------------<--");
+        player.sendMessage("§b§m-->-------------§b<< §c§lSkyCrystals §b>>§b§m-------------<--");
         player.sendMessage(" §8» §7SkyCrystals-Shop öffnen: §a/" + label + " open");
+        player.sendMessage(" §8» §7SkyCrystals-Ranking öffnen: §a/" + label + " ranking");
         player.sendMessage(" §8» §7Alte SkyCrystals übertragen: §a/" + label + " convert");
         player.sendMessage(" §8» §7SkyCrystals von einem Spieler: §a/" + label + " <player>");
         if(rank.getAccesslevel() >= SkyCrystals.getInstance().getFileManager().getPermissionFile().getAccessLevel("Command.SkyCrystals.Admin")) {
@@ -130,6 +136,6 @@ public class Command_SkyCrystals implements CommandExecutor {
             player.sendMessage(" §8» §7SkyCrystals hinzufügen: §a/" + label + " add <player> <amount>");
             player.sendMessage(" §8» §7SkyCrystals entfernen: §a/" + label + " remove <player> <amount>");
         }
-        player.sendMessage("§b§m-->-----------------§b<< §c§lSkyCrystals §b>>§b§m-----------------<--");
+        player.sendMessage("§b§m-->-------------§b<< §c§lSkyCrystals §b>>§b§m-------------<--");
     }
 }

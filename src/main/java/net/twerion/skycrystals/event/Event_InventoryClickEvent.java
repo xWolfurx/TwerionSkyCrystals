@@ -69,13 +69,20 @@ public class Event_InventoryClickEvent implements Listener {
                         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
                         return;
                     }
+
+                    if(toRemove < 1.0D) {
+                        player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§cBitte gebe einen Betrag größer als §e1.0" + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency() + " §can.");
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
+                        return;
+                    }
+
                     PlayerData playerData = SkyCrystals.getInstance().getPlayerDataManager().getPlayerData(player);
                     if(!playerData.hasEnoughCrystals(toRemove)) {
                         player.sendMessage(SkyCrystals.getInstance().getFileManager().getConfigFile().getPrefix() + "§cDu besitzt nicht genügend SkyCrystals.");
                         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1.0F, 1.0F);
                         return;
                     }
-                    ItemStack itemStack = new ItemCreator().material(Material.NETHER_STAR).displayName("§b§lSkyCrystals §7§o<Rechtsklick>").lore(Arrays.asList(new String[] {" §8➥ §7Wert §8» §a" + toRemove + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency() } )).build();
+                    ItemStack itemStack = new ItemCreator().material(Material.PAPER).displayName("§b§lSkyCrystals §7§o<Rechtsklick>").lore(Arrays.asList(new String[] {" §8➥ §7Wert §8» §a" + toRemove + SkyCrystals.getInstance().getFileManager().getConfigFile().getCurrency() } )).build();
                     playerData.removeCrystals(toRemove);
 
                     SkyCrystals.getInstance().getManager().addItem(player, itemStack);
@@ -89,6 +96,11 @@ public class Event_InventoryClickEvent implements Listener {
                     return;
                 }
             }
+        }
+
+        if(e.getView().getTitle().equals("§cSkyCrystals §8» §bRanking")) {
+            e.setCancelled(true);
+            return;
         }
 
         if(e.getView().getTitle().equals("§cSkyCrystals §8» §bShop")) {

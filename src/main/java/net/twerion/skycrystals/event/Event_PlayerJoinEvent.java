@@ -1,6 +1,8 @@
 package net.twerion.skycrystals.event;
 
 import net.twerion.skycrystals.SkyCrystals;
+import net.twerion.skycrystals.database.Callback;
+import net.twerion.skycrystals.player.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
