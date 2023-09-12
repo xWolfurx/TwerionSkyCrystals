@@ -11,7 +11,7 @@
     <repositories>
         <repository>
             <id>net.twerion</id>
-            <url>http://nexus.twerion.net/content/repositories/TwerionAPI</url>
+            <url></url>
         </repository>
     </repositories>
 
